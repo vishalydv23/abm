@@ -1,0 +1,1 @@
+data in EVs/Data/test is for the git environment to show the base data from the model. transfer this data into the root EVs/Data/ folder to see in the vis. (this folder is included in the gitignore by default.)
