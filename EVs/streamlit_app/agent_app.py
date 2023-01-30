@@ -27,7 +27,7 @@ def gen_app_3():
     st.write("see agents move around grid")
 
     col1, col2 = st.columns(2)  # col2, col3,
-    filenames = glob.glob("../Data/adf_*")
+    filenames = glob.glob("../Data/mdf_*")
     poss_locs = list(set([x.split("_")[1] for x in filenames]))
     with col1:
         # ticker = st.text_input("Choose a ticker (⬇💬👇ℹ️ ...)", value="⬇")#
