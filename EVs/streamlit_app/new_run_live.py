@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
 
-mapboxt = "pk.eyJ1IjoiZ3doYXJmIiwiYSI6ImNsYjNneW1iODA4b3kzcG10aW1qdzg0ZmcifQ.Dr044RJYsfRVTs-tp00dMA"  ## open(".mapbox_token").read().rstrip() #my mapbox_access_token
+mapboxt = "pk.eyJ1IjoiZ3doYXJmIiwiYSI6ImNsYjNneW1iODA4b3kzcG10aW1qdzg0ZmcifQ.Dr044RJYsfRVTs-tp00dMA"  # open(".mapbox_token").read().rstrip() #my mapbox_access_token
 # px.set_mapbox_access_token(mapboxt)
 
 lat_corr = 111.0
@@ -87,7 +87,7 @@ def plot_model():
 
     print(loc_list)
 
-    ####### Normal Scatter Mapbox
+    # Normal Scatter Mapbox
     fig = go.Figure(
         px.scatter_mapbox(agent_data, lat="lat", lon="long", color="loc", category_orders={"loc": loc_list})
     )  # ,size ="r"

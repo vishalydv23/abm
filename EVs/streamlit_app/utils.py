@@ -117,8 +117,7 @@ def colour_agents_SS(agent_data):
     return agent_data
 
 
-#####
-######## Symbol mapbox
+# Symbol mapbox
 
 # fig = go.Figure(go.Scattermapbox(mode = "markers", lat=agent_data["lat"], lon=agent_data["long"], marker =go.scattermapbox.Marker( {'size' : agent_data['r'],'symbol': agent_data['symbol']})),)
 #             size='charge',text ='AgentID',#hover_data=['AgentID','charge','loc','next_location'],)
