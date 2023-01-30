@@ -38,7 +38,7 @@ from  PIL import Image
 #    new_run.gen_app()
 # with st.sidebar:
 
-alt.themes.enable("streamlit")
+# alt.themes.enable("streamlit")
 
 
 st.set_page_config(layout="wide")
