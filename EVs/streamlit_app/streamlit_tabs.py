@@ -42,7 +42,7 @@ from  PIL import Image
 
 
 st.set_page_config(layout="wide")
-logo = Image.open(r'branding//cap_logo.png')
+logo = Image.open(r'./branding/cap_logo.png')
 col1, col2 = st.columns( [0.8, 0.2])
 with col1:
    choose = option_menu("Team Evlution - EV Simulation", ['Live Run', "Model Results", "Agent Movement",'New Model Run'], 
