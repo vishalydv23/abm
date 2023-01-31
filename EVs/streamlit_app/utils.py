@@ -67,7 +67,7 @@ def data_plot(data, fields, together=True):
 
 @st.cache
 def get_agent_data(loc):
-    names = glob.glob(f"../Data/mdf_{loc}*.csv")
+    names = glob.glob(f"../Data/adf_{loc}*.csv")
     data_list = []
     for file in names:
         data = pd.read_csv(file)

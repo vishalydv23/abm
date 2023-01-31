@@ -184,7 +184,7 @@ class EVSpaceModel(Model):
         elif self.CP_loc == "uniform":
             indices = np.arange(0, self.N_Charge, dtype=float) + 0.5
             r = np.sqrt(indices / self.N_Charge)
-            theta = np.pi * (1 + 5**0.5) * indices
+            theta = np.pi * (1 + 5 ** 0.5) * indices
             x_pos = r * np.cos(theta) * self.width / 2 + self.width / 2 + self.xmin
             y_pos = r * np.sin(theta) * self.height / 2 + self.height / 2 + self.ymin
         else:
