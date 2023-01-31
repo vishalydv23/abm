@@ -86,6 +86,7 @@ def plot_model():
     loc_list.sort()
 
     print(loc_list)
+    print(agent_data["loc"].value_counts())
 
     # Normal Scatter Mapbox
     fig = go.Figure(
