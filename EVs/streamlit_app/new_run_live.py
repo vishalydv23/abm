@@ -135,7 +135,7 @@ def gen_app():
         seed = st.slider("seed2", 0, 100, 1)
         # with col2:
 
-        cfg = st.radio("Configuration", poss_cfg, index=4)
+        cfg = st.radio("Configuration", poss_cfg, index=0)
 
         col1, col3 = st.columns(2)  # col2, col3
         with col1:
@@ -182,17 +182,10 @@ def gen_app():
         st.write(f"See Below the charts for that model run")
 
         mdf = pd.read_csv(
-            file_name,
-            parse_dates=["date_time"],  # set as datetime instead of converting after the fact
+            file_name, parse_dates=["date_time"],  # set as datetime instead of converting after the fact
         )
 
-        timeframeXX = [
-            st.radio(
-                "timeframeXX2",
-                ["all", "day", "hour", "weekday", "weekend"],
-                index=0,
-            )
-        ]
+        timeframeXX = [st.radio("timeframeXX2", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
         if timeframeXX == ["day"]:
             specific_date = st.date_input(
                 "xxx2",
