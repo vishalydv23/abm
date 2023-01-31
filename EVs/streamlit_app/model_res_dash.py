@@ -32,13 +32,7 @@ def gen_app():
     with col2:
         together = st.radio("Together", [True, False], index=0)
     with col4:
-        timeframe = [
-            st.radio(
-                "timeframe",
-                ["all", "day", "hour", "weekday", "weekend"],
-                index=0,
-            )
-        ]
+        timeframe = [st.radio("timeframe", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
         if timeframe == ["day"]:
             specific_date = st.date_input(
                 "xxx",
