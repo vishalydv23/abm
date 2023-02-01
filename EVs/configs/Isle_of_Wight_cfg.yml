@@ -1,0 +1,11 @@
+model_params:
+  POI_file: "inputs/Isle_of_Wight_poi_data.csv"
+  Traffic_file: "None"
+  model_name: "Isle_of_Wight"
+  rep_agents: 600
+
+agent_params:
+  EVs:
+    num_agents: 600
+  Charge_Points:
+    CP_loc: "inputs/Isle_of_Wight_charging_stations.csv"
