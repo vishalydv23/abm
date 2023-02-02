@@ -82,9 +82,9 @@ class EVSpaceModel(Model):
             model_reporters=self.cfg["output"]["model_reporters"],
             agent_reporters=self.cfg["output"]["agent_reporters"],
         )
-        for i in range(self.cfg["agent_params"]["EVs"]["num_agents"]):
+        for i in range(self.cfg["agent_params"]["EVs"]["EV_Type1"]["num_agents"]):
             a = EVAgent(i, self)
-            if i == self.cfg["agent_params"]["EVs"]["num_agents"] - 1:
+            if i == self.cfg["agent_params"]["EVs"]["EV_Type1"]["num_agents"] - 1:
                 a.large_id = True
             else:
                 a.large_id = False
@@ -156,7 +156,7 @@ class EVSpaceModel(Model):
                 self.cfg["model_params"][key_new] = val
             elif "EVP_" in key and val != "base":
                 key_new = key.replace("EVP_", "")
-                self.cfg["agent_params"]["EVs"][key_new] = val
+                self.cfg["agent_params"]["EVs"]["EV_Type1"][key_new] = val
             elif "ChargeP_" in key and val != "base":
                 key_new = key.replace("ChargeP_", "")
                 self.cfg["agent_params"]["Charge_Points"][key_new] = val
