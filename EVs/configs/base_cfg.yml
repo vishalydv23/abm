@@ -65,31 +65,84 @@ model_params:
 
 agent_params:
   EVs:
-    Type: "EV"
-    from_file: False
-    num_agents: 600
-    region: "default"
-    # file: 'inputs/'
-    discharge_rate: 0.2
-    MoveType: "loc"
-    charging: False
-    max_range: 1
-    speed: 2
-    # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
-    home_stay: [15, 10]
-    work_stay: [6, 8]
-    rand_stay: [6, 3]
-    completed_trip: 0
-    dist_moved: 0
-    max_work_d: 3
-    max_charge: 50 # kWh
-    efficiency_rating: 3 # km / kWh
-    dist_per_step: 20 # km
-    home_charge_rate: 5 # kW
-    work_charge_rate: 5 # kW
-    ChargePoint_charge_rate: 20 # kW
-    go_to_charge_pcnt: 0.2
-    next_point_charge: 0.5
+    EV_Type1:
+      Type: "EV"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge: 50 # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
+    EV_Type2:
+      Type: "EV"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge: 50 # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
+    EV_Type3:
+      Type: "EV"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge: 50 # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
   Grid_Points:
     Type: "GP"
     grid_spacing: 20
