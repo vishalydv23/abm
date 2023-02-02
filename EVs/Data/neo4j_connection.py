@@ -1,26 +1,44 @@
 from neo4j import GraphDatabase
+from pandas import DataFrame
 
-class HelloWorldExample:
-
-    def __init__(self, uri, user, password):
-        self.driver = GraphDatabase.driver(uri, auth=(user, password))
-
+class Neo4jConnection:
+    
+    def __init__(self, uri, user, pwd):
+        self.__uri = uri
+        self.__user = user
+        self.__pwd = pwd
+        self.__driver = None
+        try:
+            self.__driver = GraphDatabase.driver(self.__uri, auth=(self.__user, self.__pwd))
+        except Exception as e:
+            print("Failed to create the driver:", e)
+        
     def close(self):
-        self.driver.close()
+        if self.__driver is not None:
+            self.__driver.close()
+        
+    def query(self, query, db=None):
+        assert self.__driver is not None, "Driver not initialized!"
+        session = None
+        response = None
+        try: 
+            session = self.__driver.session(database=db) if db is not None else self.__driver.session() 
+            response = list(session.run(query))
+        except Exception as e:
+            print("Query failed:", e)
+        finally: 
+            if session is not None:
+                session.close()
+        return response
 
-    def print_greeting(self, message):
-        with self.driver.session() as session:
-            greeting = session.execute_write(self._create_and_return_greeting, message)
-            print(greeting)
+conn = Neo4jConnection(uri="bolt://localhost:7687", user="neo4j", pwd="password")
 
-    @staticmethod
-    def _create_and_return_greeting(tx, message):
-        result = tx.run("CREATE (a:Greeting) "
-                        "SET a.message = $message "
-                        "RETURN a.message + ', from node ' + id(a)", message=message)
-        return result.single()[0]
+query_string = '''
+MATCH (n)
+UNWIND keys(n) as property
+RETURN id(n), property, n[property]
+'''
+# conn.query(query_string, db='neo4j')
 
-if __name__ == "__main__":
-    greeter = HelloWorldExample("bolt://localhost:7687", "neo4j", "password")
-    greeter.print_greeting("hello, world")
-    greeter.close()
+dtf_data = DataFrame([dict(_) for _ in conn.query(query_string, db='neo4j')])
+print(dtf_data.head(12))

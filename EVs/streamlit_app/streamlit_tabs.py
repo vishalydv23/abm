@@ -42,13 +42,8 @@ from PIL import Image
 
 
 st.set_page_config(layout="wide")
-<<<<<<< HEAD
-logo = Image.open(r"branding//cap_logo.png")
-col1, col2 = st.columns([0.8, 0.2])
-=======
 logo = Image.open(r'./branding/cap_logo.png')
 col1, col2 = st.columns( [0.8, 0.2])
->>>>>>> code_skim_clean
 with col1:
     choose = option_menu(
         "Team Evlution - EV Simulation",
