@@ -8,7 +8,7 @@ import pdb
 class EVAgent(Agent):
     """An Electric Vehical Agent with starting charge, home and work locations"""
 
-    def __init__(self, unique_id, model):
+    def __init__(self, unique_id, evtype, model):
         """initialise agent from model params"""
 
         super().__init__(unique_id, model)
@@ -19,7 +19,7 @@ class EVAgent(Agent):
         self.moving = False
         self.charge_load = 0
 
-        for k, v in model.cfg["agent_params"]["EVs"].items():
+        for k, v in model.cfg["agent_params"]["EVs"][evtype].items():
             setattr(self, k, v)
 
         self.charge_pcnt = np.random.uniform(0.5, 1)  # % charge
@@ -162,7 +162,7 @@ class EVAgent(Agent):
         """calculate distance and direction to next location"""
         x_d = pf[0] - pi[0]
         y_d = pf[1] - pi[1]
-        D = (x_d**2 + y_d**2) ** 0.5
+        D = (x_d ** 2 + y_d ** 2) ** 0.5
         return D, x_d, y_d
 
     def find_closest_charge(self):

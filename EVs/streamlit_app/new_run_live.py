@@ -51,20 +51,21 @@ def portrayal_method(agent):
         portrayal["next_location"] = 0
         portrayal["symbol"] = "square"
         portrayal["loc"] = "Charging Point"
+        portrayal["subtype"] = "Charging Point"
         portrayal["r"] = r
 
         if agent.full:
-            portrayal["Color"] = "red"
+            portrayal["color"] = "black"
         else:
-            portrayal["Color"] = "Black"
+            portrayal["color"] = "red"
     else:
         portrayal["r"] = r
         portrayal["symbol"] = "bus"
         portrayal["loc"] = "moving" if agent.moving else agent.last_location
+        portrayal["subtype"] = agent.subtype
         if agent.large_id:
             portrayal["Layer"] = 5
             portrayal["r"] = r
-
     return portrayal
 
 
@@ -86,13 +87,37 @@ def plot_model():
     loc_list.sort()
 
     print(loc_list)
-    print(agent_data[agent_data["loc"] != "Charging Point"])  # ["loc"].value_counts())
+    # print(agent_data[agent_data["loc"] != "Charging Point"])  # ["loc"].value_counts())
+    # print(agent_data)
 
     # Normal Scatter Mapbox
+    loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
+    type_color_map = {"1": "cyan", "2": "magenta", "3": "yellow"}
     fig = go.Figure(
-        px.scatter_mapbox(agent_data, lat="lat", lon="long", color="loc", category_orders={"loc": loc_list})
+        px.scatter_mapbox(
+            agent_data,
+            lat="lat",
+            lon="long",
+            hover_name="AgentID",
+            # color="loc",
+            # color_discrete_map=loc_color_map,
+            # category_orders={"loc": loc_list},
+            color="subtype",
+            color_discrete_map=type_color_map,
+            text="loc",
+        )
     )  # ,size ="r"
-    # fig = go.Figure(go.Scattermapbox(mode = "markers", lat=agent_data["lat"], lon=agent_data["long"], marker =go.scattermapbox.Marker( {'symbol':'bus'})))#, color='loc',category_orders={'loc': loc_list})
+    # fig = go.Figure(
+    #     go.Scattermapbox(
+    #         mode="markers",
+    #         lat=agent_data["lat"],
+    #         lon=agent_data["long"],
+    #         # color="loc",
+    #         # color_discrete_map=color_map,
+    #         # category_orders={"loc": loc_list},
+    #         marker={"size": 20, "symbol": "bus"},
+    #     )
+    # )  # , color='loc',category_orders={'loc': loc_list})
 
     fig.update_layout(
         xaxis={"range": [st.session_state.model.xmin / long_corr, st.session_state.model.xmax / long_corr]},
@@ -154,7 +179,7 @@ def gen_app():
         hours = set(np.arange(24))
         with col1:
             winter_peaks = st.multiselect("Winter Peak Hours", list(hours), [7, 8, 9, 10, 17, 18])
-            print(winter_peaks)
+            # print(winter_peaks)
         with col3:
             winter_mid_peaks = st.multiselect(
                 "Winter Mid Hours", list(hours - set(winter_peaks)), [11, 12, 13, 14, 15, 16]

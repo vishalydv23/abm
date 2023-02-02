@@ -67,6 +67,7 @@ agent_params:
   EVs:
     EV_Type1:
       Type: "EV"
+      subtype: "1"
       from_file: False
       num_agents: 600
       region: "default"
@@ -93,6 +94,7 @@ agent_params:
       next_point_charge: 0.5
     EV_Type2:
       Type: "EV"
+      subtype: "2"
       from_file: False
       num_agents: 600
       region: "default"
@@ -119,6 +121,7 @@ agent_params:
       next_point_charge: 0.5
     EV_Type3:
       Type: "EV"
+      subtype: "3"
       from_file: False
       num_agents: 600
       region: "default"

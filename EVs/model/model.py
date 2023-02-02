@@ -82,15 +82,16 @@ class EVSpaceModel(Model):
             model_reporters=self.cfg["output"]["model_reporters"],
             agent_reporters=self.cfg["output"]["agent_reporters"],
         )
-        for i in range(self.cfg["agent_params"]["EVs"]["EV_Type1"]["num_agents"]):
-            a = EVAgent(i, self)
-            if i == self.cfg["agent_params"]["EVs"]["EV_Type1"]["num_agents"] - 1:
-                a.large_id = True
-            else:
-                a.large_id = False
-            self.schedule.add(a)
-            # Add the agent to a random space
-            self.space.place_agent(a, a.pos)
+        for ev_type in self.cfg["agent_params"]["EVs"]:
+            for i in range(self.cfg["agent_params"]["EVs"][ev_type]["num_agents"]):
+                a = EVAgent(ev_type + "_" + str(i), ev_type, self)
+                if i == self.cfg["agent_params"]["EVs"][ev_type]["num_agents"] - 1:
+                    a.large_id = True
+                else:
+                    a.large_id = False
+                self.schedule.add(a)
+                # Add the agent to a random space
+                self.space.place_agent(a, a.pos)
 
         # set up charging points
         self.schedule_CP = RandomActivation(self)
@@ -197,7 +198,7 @@ class EVSpaceModel(Model):
         # create and place charge points
         self.charge_locations = {}
         for i in range(self.N_Charge):
-            name = str(i) + "_Charge"
+            name = "Charge_" + str(i)
 
             pos = charge_locs[i]
             try:
