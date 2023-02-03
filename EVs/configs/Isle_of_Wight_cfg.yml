@@ -8,4 +8,5 @@ agent_params:
   EVs:
     num_agents: 600
   Charge_Points:
-    CP_loc: "inputs/Isle_of_Wight_charging_stations.csv"
+    CP_loc: "fetch_from _database"
+    # CP_loc: "inputs/Isle_of_Wight_charging_stations.csv"

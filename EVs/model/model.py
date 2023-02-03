@@ -12,6 +12,8 @@ from .datacollection import DataCollector
 import datetime
 import collections.abc
 
+from Data.neo4j_connection import fetch_charging_point_data
+
 
 class EVSpaceModel(Model):
     """ Electric Vehical Model, where cars drive around between locations then pull into charge points. \n
@@ -180,6 +182,14 @@ class EVSpaceModel(Model):
             names = self.CP_locs.index
             x_pos = self.CP_locs['x_km'].values
             y_pos = self.CP_locs['y_km'].values
+        elif self.CP_loc == "fetch_from _database":
+            cp_df = fetch_charging_point_data()
+            self.CP_locs = cp_df.set_index('Station_Name') # two station name can be same so correct it later
+            print(self.CP_locs)
+            self.N_Charge = len(self.CP_locs)
+            names = self.CP_locs.index
+            x_pos = self.CP_locs['x_km'].values
+            y_pos = self.CP_locs['y_km'].values
         elif self.CP_loc == 'uniform':
             indices = np.arange(0, self.N_Charge, dtype=float) + 0.5
             r = np.sqrt(indices / self.N_Charge)
@@ -191,7 +201,6 @@ class EVSpaceModel(Model):
             y_pos = np.random.random(self.N_Charge) * self.height + self.ymin
 
         charge_locs = list(zip(x_pos, y_pos))
-        # print(charge_locs)
 
         # create and place charge points
         self.charge_locations = {}

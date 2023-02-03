@@ -1,5 +1,6 @@
 from neo4j import GraphDatabase
 from pandas import DataFrame
+import json
 
 class Neo4jConnection:
     
@@ -31,14 +32,21 @@ class Neo4jConnection:
                 session.close()
         return response
 
-conn = Neo4jConnection(uri="bolt://localhost:7687", user="neo4j", pwd="password")
 
-query_string = '''
-MATCH (n)
-UNWIND keys(n) as property
-RETURN id(n), property, n[property]
-'''
-# conn.query(query_string, db='neo4j')
+def fetch_charging_point_data():
+    # read the databse credentials from json file
+    with open('./configs/database_credentials_git_ignored.json') as file:
+        creds = json.load(file)
 
-dtf_data = DataFrame([dict(_) for _ in conn.query(query_string, db='neo4j')])
-print(dtf_data.head(12))
+    conn = Neo4jConnection(uri=creds['neo4jcreds']['uri'], user=creds['neo4jcreds']['username'], pwd=creds['neo4jcreds']['password'])
+    
+    # query to fetch charging point list
+    query_string = '''
+    MATCH (c:CHARGING_STATION) 
+    RETURN c.x as x, c.y as y, c.x_km as x_km, c.y_km as y_km, c.station_name as Station_Name, c.city as City
+    '''
+    
+    cp_data_df = DataFrame([dict(_) for _ in conn.query(query_string, db=creds['neo4jcreds']['db'])])
+    conn.close()
+
+    return(cp_data_df)
