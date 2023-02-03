@@ -50,3 +50,21 @@ def fetch_charging_point_data():
     conn.close()
 
     return(cp_data_df)
+
+def fetch_point_of_interest_data():
+    # read the databse credentials from json file
+    with open('./configs/database_credentials_git_ignored.json') as file:
+        creds = json.load(file)
+
+    conn = Neo4jConnection(uri=creds['neo4jcreds']['uri'], user=creds['neo4jcreds']['username'], pwd=creds['neo4jcreds']['password'])
+    
+    # query to fetch charging point list
+    query_string = '''
+    MATCH (p:POI) 
+    RETURN p.poi_x as poi_x, p.poi_y as poi_y, p.poi_x_km as poi_x_km, p.poi_y_km as poi_y_km, p.poi_name as poi_name, p.poi_area as poi_area, p.place_name as place_name
+    '''
+    
+    cp_data_df = DataFrame([dict(_) for _ in conn.query(query_string, db=creds['neo4jcreds']['db'])])
+    conn.close()
+
+    return(cp_data_df)
