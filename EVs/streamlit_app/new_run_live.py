@@ -92,7 +92,7 @@ def plot_model():
 
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
-    type_color_map = {"holiday_goer": "cyan", "daily_commuter": "magenta", "taxi_driver": "yellow"}
+    type_color_map = {"holiday_goer": "blue", "daily_commuter": "magenta", "taxi_driver": "green"}
     fig = go.Figure(
         px.scatter_mapbox(
             agent_data,
@@ -105,6 +105,10 @@ def plot_model():
             color="subtype",
             color_discrete_map=type_color_map,
             text="loc",
+            center={"lat": 50.670974, "lon": -1.3212148},
+            zoom=10.6,
+            width=750,
+            height=750,
         )
     )  # ,size ="r"
     # fig = go.Figure(
