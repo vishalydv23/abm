@@ -26,6 +26,7 @@ class EVAgent(Agent):
         self.max_charge = np.random.choice(self.max_charge_list)
         self.charge = self.charge_pcnt * self.max_charge  # kWh
         self.range = self.charge * self.efficiency_rating  # max dist in km
+        self.has_home_charger = self.home_charge_perc > np.random.uniform()
 
         self.initialise_locs()
 
@@ -247,7 +248,7 @@ class EVAgent(Agent):
             self.charging = False
             return
 
-        if self.last_location == "home" and self.home_charge_rate != 0 and self.home_charge_perc > np.random.uniform():
+        if self.last_location == "home" and self.home_charge_rate != 0 and self.has_home_charger:
             if self.price_function():
                 self.charging = True
                 self.charge_load = abs(np.random.normal(self.home_charge_rate, 1))  # slow charge
