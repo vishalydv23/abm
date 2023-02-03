@@ -96,7 +96,8 @@ class EVSpaceModel(Model):
         # set up charging points
         self.schedule_CP = RandomActivation(self)
         self.datacollector_CP = DataCollector(
-            schedule="schedule_CP", agent_reporters={"cars_charging": "cars_charging", "full": "full"}
+            schedule="schedule_CP",
+            agent_reporters={"cars_charging": "cars_charging", "full": "full", "in_operation": "in_operation"},
         )
         self.gen_CPs()
 
@@ -157,7 +158,8 @@ class EVSpaceModel(Model):
                 self.cfg["model_params"][key_new] = val
             elif "EVP_" in key and val != "base":
                 key_new = key.replace("EVP_", "")
-                self.cfg["agent_params"]["EVs"]["EV_Type1"][key_new] = val
+                for subtype in self.cfg["agent_params"]["EVs"]:
+                    self.cfg["agent_params"]["EVs"][subtype][key_new] = val
             elif "ChargeP_" in key and val != "base":
                 key_new = key.replace("ChargeP_", "")
                 self.cfg["agent_params"]["Charge_Points"][key_new] = val
@@ -197,6 +199,7 @@ class EVSpaceModel(Model):
 
         # create and place charge points
         self.charge_locations = {}
+        # self.charge_in_operation = {}
         for i in range(self.N_Charge):
             name = "Charge_" + str(i)
 
@@ -207,7 +210,8 @@ class EVSpaceModel(Model):
 
                 # Add the agent to space
                 self.space.place_agent(a, pos)
-                self.charge_locations[name] = pos
+                self.charge_locations[name] = (pos, a.in_operation)
+                # self.charge_in_operation[name] = a.in_operation
             except:
                 print(f"Charge Point Failed {name} {pos}")
 

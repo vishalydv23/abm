@@ -169,13 +169,17 @@ class EVAgent(Agent):
         """scan all charge points to find closest one"""
         # todo update preferences about which charge points are free
         # todo only look at nearest charge points
+        # if no charge point available, head home
         distances = {}
-        for i, (CL_name, CL_pos) in enumerate(self.model.charge_locations.items()):
-            distances[CL_name], x_d, y_d = self.get_distance(self.pos, CL_pos)
-
-        best_CL = min(distances, key=distances.get)
-        self.locations["charge"] = self.model.charge_locations[best_CL]
-        self.next_location = "charge"
+        for (CL_name, CL_pos) in self.model.charge_locations.items():
+            if CL_pos[1]:
+                distances[CL_name], x_d, y_d = self.get_distance(self.pos, CL_pos[0])
+        try:
+            best_CL = min(distances, key=distances.get)
+            self.locations["charge"] = self.model.charge_locations[best_CL][0]
+            self.next_location = "charge"
+        except ValueError:
+            self.next_location = "home"
 
     def agent_schedule(self):
         """Just got to new location. decide how long to wait and where to go next"""

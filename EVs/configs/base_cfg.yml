@@ -67,7 +67,7 @@ agent_params:
   EVs:
     EV_Type1:
       Type: "EV"
-      subtype: "1"
+      subtype: "holiday_goer"
       from_file: False
       num_agents: 600
       region: "default"
@@ -94,7 +94,7 @@ agent_params:
       next_point_charge: 0.5
     EV_Type2:
       Type: "EV"
-      subtype: "2"
+      subtype: "daily_commuter"
       from_file: False
       num_agents: 600
       region: "default"
@@ -121,7 +121,7 @@ agent_params:
       next_point_charge: 0.5
     EV_Type3:
       Type: "EV"
-      subtype: "3"
+      subtype: "taxi_driver"
       from_file: False
       num_agents: 600
       region: "default"
@@ -158,3 +158,5 @@ agent_params:
     charge_rate: 0.2
     cars_charging: 0
     full: False
+    in_operation: True
+    perc_in_operation: 1.0

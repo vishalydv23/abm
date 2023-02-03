@@ -5,6 +5,7 @@ from mesa.datacollection import DataCollector
 
 import numpy as np
 from numpy import pi, cos, sin, sqrt, arange
+from random import random
 import matplotlib.pyplot as pp
 
 
@@ -21,6 +22,7 @@ class ChargePoint(Agent):
         self.pos = pos
         self.X = self.pos[0]
         self.Y = self.pos[1]
+        self.in_operation = True if random() < self.perc_in_operation else False
 
     def ChargeEV(self):
         """count number of cars charging"""

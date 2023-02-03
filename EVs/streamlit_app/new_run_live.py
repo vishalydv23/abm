@@ -86,13 +86,13 @@ def plot_model():
     loc_list = agent_data["loc"].unique()
     loc_list.sort()
 
-    print(loc_list)
+    # print(loc_list)
     # print(agent_data[agent_data["loc"] != "Charging Point"])  # ["loc"].value_counts())
     # print(agent_data)
 
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
-    type_color_map = {"1": "cyan", "2": "magenta", "3": "yellow"}
+    type_color_map = {"holiday_goer": "cyan", "daily_commuter": "magenta", "taxi_driver": "yellow"}
     fig = go.Figure(
         px.scatter_mapbox(
             agent_data,
