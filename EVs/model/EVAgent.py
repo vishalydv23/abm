@@ -247,19 +247,21 @@ class EVAgent(Agent):
             self.charging = False
             return
 
-        if self.last_location == "home" and self.home_charge_rate != 0:
+        if self.last_location == "home" and self.home_charge_rate != 0 and self.home_charge_perc > np.random.uniform():
             if self.price_function():
                 self.charging = True
-                self.charge_load = self.home_charge_rate  # slow charge
+                self.charge_load = abs(np.random.normal(self.home_charge_rate, 1))  # slow charge
         elif self.last_location == "work" and self.work_charge_rate != 0:
             if self.price_function():
                 self.charging = True
-                self.charge_load = self.work_charge_rate  # slow charge
+                self.charge_load = abs(np.random.normal(self.work_charge_rate, 1))  # slow charge
         # if at charging point and not moving then charge from point and check if full
         elif self.last_location == "charge":
             self.check_charge()
             if self.charging:
-                self.charge_load = self.ChargePoint_charge_rate  # fast charge, set via charge point attr
+                self.charge_load = abs(
+                    np.random.normal(self.ChargePoint_charge_rate, 1)
+                )  # fast charge, set via charge point attr
 
         charge_req = self.max_charge - self.charge
         self.charge_load = min(self.charge_load, charge_req)

@@ -7,7 +7,7 @@ model_params:
 agent_params:
   EVs:
     Holiday_Goer:
-      num_agents: 25
+      num_agents: 140
     Daily_Commuter:
       num_agents: 500
     Taxi_Driver:
