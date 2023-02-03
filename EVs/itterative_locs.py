@@ -1,8 +1,13 @@
 from model.model import *
 import time
 
-cfgs = ['None', 'configs/Mississauga_cfg.yml', 'configs/Point_Edward_cfg.yml',
-        'configs/east_box.yml', 'configs/west_box.yml']
+cfgs = [
+    "None",
+    "configs/Mississauga_cfg.yml",
+    "configs/Point_Edward_cfg.yml",
+    "configs/east_box.yml",
+    "configs/west_box.yml",
+]
 
 print("The model agents will simulate across: ", cfgs)
 
@@ -18,5 +23,8 @@ for cfg in cfgs:
         model.save()
 
 end = time.time() - start
-print(f"Minutes it took to run the simulation for {n_hours} "
-      f"hours of agent steps and {n_seeds} complete seeds/trials: ", end/60)
+print(
+    f"Minutes it took to run the simulation for {n_hours} "
+    f"hours of agent steps and {n_seeds} complete seeds/trials: ",
+    end / 60,
+)

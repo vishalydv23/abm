@@ -55,7 +55,7 @@ class DataCollector:
 
     model = None
 
-    def __init__(self, schedule='schedule', model_reporters=None, agent_reporters=None, tables=None):
+    def __init__(self, schedule="schedule", model_reporters=None, agent_reporters=None, tables=None):
         """Instantiate a DataCollector with lists of model and agent reporters.
         Both model_reporters and agent_reporters accept a dictionary mapping a
         variable name to either an attribute name, or a method.
@@ -97,7 +97,7 @@ class DataCollector:
         """
         self.model_reporters = {}
         self.agent_reporters = {}
-        
+
         self.schedule_name = schedule
 
         self.model_vars = {}
@@ -165,11 +165,11 @@ class DataCollector:
         else:
 
             def get_reports(agent):
-                _prefix = (getattr(agent.model,self.schedule_name).steps, agent.unique_id)
+                _prefix = (getattr(agent.model, self.schedule_name).steps, agent.unique_id)
                 reports = tuple(rep(agent) for rep in rep_funcs)
                 return _prefix + reports
 
-        agent_records = map(get_reports, getattr(model,self.schedule_name).agents)
+        agent_records = map(get_reports, getattr(model, self.schedule_name).agents)
         return agent_records
 
     def _reporter_decorator(self, reporter):
@@ -194,7 +194,7 @@ class DataCollector:
 
         if self.agent_reporters:
             agent_records = self._record_agents(model)
-            self._agent_records[getattr(model,self.schedule_name).steps] = list(agent_records)
+            self._agent_records[getattr(model, self.schedule_name).steps] = list(agent_records)
 
     def add_table_row(self, table_name, row, ignore_missing=False):
         """Add a row dictionary to a specific table.

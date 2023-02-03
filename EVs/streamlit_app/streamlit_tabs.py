@@ -75,3 +75,5 @@ elif choose == "Agent Movement":
     agent_app.gen_app_3()
 else:
     new_run.gen_app()
+
+# streamlit run .\streamlit_tabs.py

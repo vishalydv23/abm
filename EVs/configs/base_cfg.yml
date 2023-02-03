@@ -1,105 +1,162 @@
 output:
-  output_dir: 'data//'
-  model_reporters: 
-    model_name: 'model_name'
-    COM: 'COM'
-    date_time: 'date_time'
-    av_charge: 'av_charge'
-    completed_trip: 'completed_trip'
-    dead_cars: 'dead_cars'
-    charge_load: 'charge_load'
-    av_moving: 'av_moving'
-    av_home: 'av_home'
-    av_work: 'av_work'
-    av_random: 'av_random'
-    av_CP: 'av_CP'
-    lat: 'lat'
-    lon: 'lon'
-    seed: 'seed'
-    price: 'price'
-    rep_agents: 'rep_agents'
-    season: 'season'
-  agent_reporters: 
+  output_dir: "data//"
+  model_reporters:
+    model_name: "model_name"
+    COM: "COM"
+    date_time: "date_time"
+    av_charge: "av_charge"
+    completed_trip: "completed_trip"
+    dead_cars: "dead_cars"
+    charge_load: "charge_load"
+    av_moving: "av_moving"
+    av_home: "av_home"
+    av_work: "av_work"
+    av_random: "av_random"
+    av_CP: "av_CP"
+    lat: "lat"
+    lon: "lon"
+    seed: "seed"
+    price: "price"
+    rep_agents: "rep_agents"
+    season: "season"
+  agent_reporters:
     charge: "charge"
-    last_location: 'last_location'
-    next_location: 'next_location'
-    pos: 'pos'
-    charging: 'charging'
-    wait: 'wait'
-    moving: 'moving'
-    completed_trip: 'completed_trip'
-    dist_moved: 'dist_moved'
-    charge_load: 'charge_load'
+    last_location: "last_location"
+    next_location: "next_location"
+    pos: "pos"
+    charging: "charging"
+    wait: "wait"
+    moving: "moving"
+    completed_trip: "completed_trip"
+    dist_moved: "dist_moved"
+    charge_load: "charge_load"
   save_data:
     model: True
     EVs: False
     CPs: False
     GPs: False
-    
-model_params: 
-  start_date : '2022-11-21'
-  seed: 'None'
+
+model_params:
+  start_date: "2022-11-21"
+  seed: "None"
   width: 200.
   height: 200.
-  model_name :  'test_location'
+  model_name: "test_location"
   tol: 0.01
-  POI_file: 'inputs/POIs.csv'
-  Traffic_file: 'None'
+  POI_file: "inputs/POIs.csv"
+  Traffic_file: "None"
   time_increment: 1 # hours
-  location_probs_weekday: 'inputs/location_probs_weekday.csv'
-  location_probs_weekend: 'inputs/location_probs_weekend.csv'
+  location_probs_weekday: "inputs/location_probs_weekday.csv"
+  location_probs_weekend: "inputs/location_probs_weekend.csv"
   price: 0
   price_set_mechanism: 1
   price_peak: 15.1
   price_off_peak: 7.4
   price_mid_peak: 10.2
-  winter_peaks: [7,8,9,10,17,18]
-  winter_mid_peaks: [11,12,13,14,15,16]
-  summer_peaks: [11,12,13,14,15,16]
-  summer_mid_peaks: [7,8,9,10,17,18]
-  season: ''
-  price_df_file: 'inputs/hourly_price.csv'
-  rep_agents: 1000
-  total_agents: 150000
+  winter_peaks: [7, 8, 9, 10, 17, 18]
+  winter_mid_peaks: [11, 12, 13, 14, 15, 16]
+  summer_peaks: [11, 12, 13, 14, 15, 16]
+  summer_mid_peaks: [7, 8, 9, 10, 17, 18]
+  season: ""
+  price_df_file: "inputs/hourly_price.csv"
+  rep_agents: 600
+  total_agents: 100000
   growth_rate: 0.0001
 
-
-agent_params: 
-  EVs: 
-    Type: 'EV'
-    from_file: False
-    num_agents: 1000
-    region: 'default'
-    # file: 'inputs/'
-    discharge_rate: 0.2
-    MoveType :  'loc'
-    charging: False
-    max_range: 1
-    speed: 2
-    # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
-    home_stay: [15,10]
-    work_stay: [6,8]
-    rand_stay: [6,3]
-    completed_trip: 0
-    dist_moved: 0
-    max_work_d: 3
-    max_charge: 50 # kWh
-    efficiency_rating: 3 # km / kWh
-    dist_per_step: 20 # km
-    home_charge_rate: 5 # kW
-    work_charge_rate: 5 # kW
-    ChargePoint_charge_rate: 20 # kW
-    go_to_charge_pcnt: 0.2
-    next_point_charge: 0.5
+agent_params:
+  EVs:
+    EV_Type1:
+      Type: "EV"
+      subtype: "holiday_goer"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge_list: [50, 60, 75] # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
+    EV_Type2:
+      Type: "EV"
+      subtype: "daily_commuter"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge_list: [20, 40, 50] # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
+    EV_Type3:
+      Type: "EV"
+      subtype: "taxi_driver"
+      from_file: False
+      num_agents: 600
+      region: "default"
+      # file: 'inputs/'
+      discharge_rate: 0.2
+      MoveType: "loc"
+      charging: False
+      max_range: 1
+      speed: 2
+      # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
+      home_stay: [15, 10]
+      work_stay: [6, 8]
+      rand_stay: [6, 3]
+      completed_trip: 0
+      dist_moved: 0
+      max_work_d: 3
+      max_charge_list: [50, 75, 100] # kWh
+      efficiency_rating: 3 # km / kWh
+      dist_per_step: 20 # km
+      home_charge_rate: 5 # kW
+      work_charge_rate: 5 # kW
+      ChargePoint_charge_rate: 20 # kW
+      go_to_charge_pcnt: 0.2
+      next_point_charge: 0.5
   Grid_Points:
-    Type: 'GP'
-    grid_spacing :  20
+    Type: "GP"
+    grid_spacing: 20
     cars_passing: 0
   Charge_Points:
-    Type: 'CP'
-    CP_loc: 'random'
+    Type: "CP"
+    CP_loc: "random"
     CP_capacity: 10
     N_Charge: 10
-    charge_rate :  0.2
+    charge_rate: 0.2
     cars_charging: 0
     full: False
+    in_operation: True
+    perc_in_operation: 1.0
