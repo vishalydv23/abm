@@ -6,12 +6,12 @@ model_params:
 
 agent_params:
   EVs:
-    EV_Type1:
-      num_agents: 5
-    EV_Type2:
-      num_agents: 5
-    EV_Type3:
-      num_agents: 5
+    Holiday_Goer:
+      num_agents: 25
+    Daily_Commuter:
+      num_agents: 500
+    Taxi_Driver:
+      num_agents: 100
   Charge_Points:
     CP_loc: "inputs/Isle_of_Wight_charging_stations.csv"
-    perc_in_operation: 0.8
+    perc_in_operation: 0.9
