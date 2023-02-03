@@ -78,9 +78,9 @@ agent_params:
       max_range: 1
       speed: 2
       # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
-      home_stay: [15, 10]
-      work_stay: [6, 8]
-      rand_stay: [6, 3]
+      home_stay: [10, 10]
+      work_stay: [0, 0]
+      rand_stay: [8, 4]
       completed_trip: 0
       dist_moved: 0
       max_work_d: 3
@@ -89,9 +89,10 @@ agent_params:
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW
       work_charge_rate: 5 # kW
-      ChargePoint_charge_rate: 20 # kW
+      ChargePoint_charge_rate: 15 # mean normal kW
       go_to_charge_pcnt: 0.2
       next_point_charge: 0.5
+      home_charge_perc: 0.4
     Daily_Commuter:
       Type: "EV"
       subtype: "daily_commuter"
@@ -116,9 +117,10 @@ agent_params:
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW
       work_charge_rate: 5 # kW
-      ChargePoint_charge_rate: 20 # kW
+      ChargePoint_charge_rate: 15 # mean normal kW
       go_to_charge_pcnt: 0.2
       next_point_charge: 0.5
+      home_charge_perc: 0.8
     Taxi_Driver:
       Type: "EV"
       subtype: "taxi_driver"
@@ -132,9 +134,9 @@ agent_params:
       max_range: 1
       speed: 2
       # hours stayed at location [Weekend,Weekday] -- See 'business_day parameter for selection process'
-      home_stay: [15, 10]
-      work_stay: [6, 8]
-      rand_stay: [6, 3]
+      home_stay: [10, 10]
+      work_stay: [0, 0]
+      rand_stay: [1, 1]
       completed_trip: 0
       dist_moved: 0
       max_work_d: 3
@@ -143,9 +145,10 @@ agent_params:
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW
       work_charge_rate: 5 # kW
-      ChargePoint_charge_rate: 20 # kW
+      ChargePoint_charge_rate: 15 # mean normal kW
       go_to_charge_pcnt: 0.2
       next_point_charge: 0.5
+      home_charge_perc: 0.0
   Grid_Points:
     Type: "GP"
     grid_spacing: 20

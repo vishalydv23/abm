@@ -26,6 +26,7 @@ class EVAgent(Agent):
         self.max_charge = np.random.choice(self.max_charge_list)
         self.charge = self.charge_pcnt * self.max_charge  # kWh
         self.range = self.charge * self.efficiency_rating  # max dist in km
+        self.has_home_charger = self.home_charge_perc > np.random.uniform()
 
         self.initialise_locs()
 
@@ -45,12 +46,15 @@ class EVAgent(Agent):
             rand_locs = rand_locs.iloc[2:]
             # idxs = list(rand_locs.index[:2])
 
-            # choose work location that is closer than max_work_d hours travel away (ie cant work somewhere super far as wont be able to travel there)
-            poss_work_locs = rand_locs[rand_locs["d"] < self.max_work_d]
-            if len(poss_work_locs) > 1:
-                work_loc = poss_work_locs.iloc[0]
-                self.locations["work"] = (work_loc["poi_x_km"], work_loc["poi_y_km"])
-                # idxs += list(poss_work_locs.index[0])
+            # Only commuters will have a work location
+            if self.subtype == "daily_commuter":
+                # choose work location that is closer than max_work_d hours travel away
+                # (ie cant work somewhere super far as wont be able to travel there)
+                poss_work_locs = rand_locs[rand_locs["d"] < self.max_work_d]
+                if len(poss_work_locs) > 1:
+                    work_loc = poss_work_locs.iloc[0]
+                    self.locations["work"] = (work_loc["poi_x_km"], work_loc["poi_y_km"])
+                    # idxs += list(poss_work_locs.index[0])
 
             # self.model.POIs.loc[idxs,'uses'] += 1
         else:
@@ -244,19 +248,21 @@ class EVAgent(Agent):
             self.charging = False
             return
 
-        if self.last_location == "home" and self.home_charge_rate != 0:
+        if self.last_location == "home" and self.home_charge_rate != 0 and self.has_home_charger:
             if self.price_function():
                 self.charging = True
-                self.charge_load = self.home_charge_rate  # slow charge
+                self.charge_load = abs(np.random.normal(self.home_charge_rate, 1))  # slow charge
         elif self.last_location == "work" and self.work_charge_rate != 0:
             if self.price_function():
                 self.charging = True
-                self.charge_load = self.work_charge_rate  # slow charge
+                self.charge_load = abs(np.random.normal(self.work_charge_rate, 1))  # slow charge
         # if at charging point and not moving then charge from point and check if full
         elif self.last_location == "charge":
             self.check_charge()
             if self.charging:
-                self.charge_load = self.ChargePoint_charge_rate  # fast charge, set via charge point attr
+                self.charge_load = abs(
+                    np.random.normal(self.ChargePoint_charge_rate, 1)
+                )  # fast charge, set via charge point attr
 
         charge_req = self.max_charge - self.charge
         self.charge_load = min(self.charge_load, charge_req)
