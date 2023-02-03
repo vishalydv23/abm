@@ -84,7 +84,7 @@ agent_params:
       completed_trip: 0
       dist_moved: 0
       max_work_d: 3
-      max_charge: 50 # kWh
+      max_charge_list: [50, 60, 75] # kWh
       efficiency_rating: 3 # km / kWh
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW
@@ -111,7 +111,7 @@ agent_params:
       completed_trip: 0
       dist_moved: 0
       max_work_d: 3
-      max_charge: 50 # kWh
+      max_charge_list: [20, 40, 50] # kWh
       efficiency_rating: 3 # km / kWh
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW
@@ -138,7 +138,7 @@ agent_params:
       completed_trip: 0
       dist_moved: 0
       max_work_d: 3
-      max_charge: 50 # kWh
+      max_charge_list: [50, 75, 100] # kWh
       efficiency_rating: 3 # km / kWh
       dist_per_step: 20 # km
       home_charge_rate: 5 # kW

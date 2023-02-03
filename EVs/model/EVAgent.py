@@ -23,6 +23,7 @@ class EVAgent(Agent):
             setattr(self, k, v)
 
         self.charge_pcnt = np.random.uniform(0.5, 1)  # % charge
+        self.max_charge = np.random.choice(self.max_charge_list)
         self.charge = self.charge_pcnt * self.max_charge  # kWh
         self.range = self.charge * self.efficiency_rating  # max dist in km
 
