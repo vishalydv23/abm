@@ -45,12 +45,15 @@ class EVAgent(Agent):
             rand_locs = rand_locs.iloc[2:]
             # idxs = list(rand_locs.index[:2])
 
-            # choose work location that is closer than max_work_d hours travel away (ie cant work somewhere super far as wont be able to travel there)
-            poss_work_locs = rand_locs[rand_locs["d"] < self.max_work_d]
-            if len(poss_work_locs) > 1:
-                work_loc = poss_work_locs.iloc[0]
-                self.locations["work"] = (work_loc["poi_x_km"], work_loc["poi_y_km"])
-                # idxs += list(poss_work_locs.index[0])
+            # Only commuters will have a work location
+            if self.subtype == "daily_commuter":
+                # choose work location that is closer than max_work_d hours travel away
+                # (ie cant work somewhere super far as wont be able to travel there)
+                poss_work_locs = rand_locs[rand_locs["d"] < self.max_work_d]
+                if len(poss_work_locs) > 1:
+                    work_loc = poss_work_locs.iloc[0]
+                    self.locations["work"] = (work_loc["poi_x_km"], work_loc["poi_y_km"])
+                    # idxs += list(poss_work_locs.index[0])
 
             # self.model.POIs.loc[idxs,'uses'] += 1
         else:
