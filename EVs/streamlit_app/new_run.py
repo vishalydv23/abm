@@ -3,6 +3,7 @@ import glob
 import os
 from utils import data_subset, data_plot
 import pandas as pd
+import numpy as np
 
 
 def run_new_model(**kwargs):
@@ -37,8 +38,35 @@ def gen_app():
     with col3:
         run_len = st.slider("run_len", 0, 500, 240)
 
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        price_peak = st.slider("Peak", 0, 20, 15)
+    with col2:
+        price_off_peak = st.slider("Off Peak Price", 0, 20, 7)
+    with col3:
+        price_mid_peak = st.slider("Mid Peak Price", 0, 20, 10)
+
+    col1, col2 = st.columns(2)  # col2, col3
+    hours = set(np.arange(24))
+    with col1:
+        winter_peaks = st.multiselect("Winter Peak Hours", list(hours), [7, 8, 9, 10, 17, 18])
+        # print(winter_peaks)
+    with col2:
+        winter_mid_peaks = st.multiselect(
+            "Winter Mid Hours", list(hours - set(winter_peaks)), [11, 12, 13, 14, 15, 16]
+        )
+
     kwargs = dict(
-        cfg=cfg, run_len=run_len, ModelP_model_name=model_name, ModelP_seed=seed, EVP_dist_per_step=dist_per_step
+        cfg=cfg,
+        run_len=run_len,
+        ModelP_model_name=model_name,
+        ModelP_seed=seed,
+        EVP_dist_per_step=dist_per_step,
+        ModelP_price_peak=price_peak,
+        ModelP_price_off_peak=price_off_peak,
+        ModelP_price_mid_peak=price_mid_peak,
+        ModelP_winter_peaks=winter_peaks,
+        ModelP_winter_mid_peaks=winter_mid_peaks,
     )
     model_running = False
     specific_date = []
@@ -51,17 +79,10 @@ def gen_app():
         st.write(f"See Below the charts for that model run")
 
         mdf = pd.read_csv(
-            file_name,
-            parse_dates=["date_time"],  # set as datetime instead of converting after the fact
+            file_name, parse_dates=["date_time"],  # set as datetime instead of converting after the fact
         )
 
-        timeframeXX = [
-            st.radio(
-                "timeframeXX",
-                ["all", "day", "hour", "weekday", "weekend"],
-                index=0,
-            )
-        ]
+        timeframeXX = [st.radio("timeframeXX", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
         if timeframeXX == ["day"]:
             specific_date = st.date_input(
                 "xxx", value=mdf["date_time"].min(), min_value=mdf["date_time"].min(), max_value=mdf["date_time"].max()

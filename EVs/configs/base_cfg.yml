@@ -67,7 +67,7 @@ agent_params:
   EVs:
     Holiday_Goer:
       Type: "EV"
-      subtype: "holiday_goer"
+      subtype: "Holiday Goer"
       from_file: False
       num_agents: 600
       region: "default"
@@ -95,7 +95,7 @@ agent_params:
       home_charge_perc: 0.4
     Daily_Commuter:
       Type: "EV"
-      subtype: "daily_commuter"
+      subtype: "Daily Commuter"
       from_file: False
       num_agents: 600
       region: "default"
@@ -123,7 +123,7 @@ agent_params:
       home_charge_perc: 0.8
     Taxi_Driver:
       Type: "EV"
-      subtype: "taxi_driver"
+      subtype: "Taxi Driver"
       from_file: False
       num_agents: 600
       region: "default"

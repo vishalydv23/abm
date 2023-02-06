@@ -1,6 +1,6 @@
 model_params:
-  POI_file: "fetch_from_database"
-  # POI_file: "inputs/Isle_of_Wight_poi_data.csv"
+  # POI_file: "fetch_from_database"
+  POI_file: "inputs/Isle_of_Wight_poi_data.csv"
   Traffic_file: "None"
   model_name: "Isle_of_Wight"
   rep_agents: 600
