@@ -12,6 +12,7 @@ from .datacollection import DataCollector
 import datetime
 import collections.abc
 
+import Data.neo4j_connection
 
 class EVSpaceModel(Model):
     """Electric Vehical Model, where cars drive around between locations then pull into charge points. \n
@@ -50,6 +51,7 @@ class EVSpaceModel(Model):
         # Set up points of interest that the agents will choose from
         # this also defines the parameter space for locations where an agent can be
         # then also pick and save the lat/lon for use in vis
+<<<<<<< HEAD
         if self.POI_file != "None":
             self.POIs = pd.read_csv(self.POI_file).set_index("poi_name")
             self.POIs["uses"] = 0
@@ -57,6 +59,17 @@ class EVSpaceModel(Model):
             self.xmax = max(self.POIs["poi_x_km"]) + self.tol
             self.ymin = min(self.POIs["poi_y_km"]) - self.tol
             self.ymax = max(self.POIs["poi_y_km"]) + self.tol
+=======
+        if self.POI_file != 'None':
+            poi_df = Data.neo4j_connection.fetch_point_of_interest_data()
+            self.POIs = poi_df.set_index('poi_name')
+            # self.POIs = pd.read_csv(self.POI_file).set_index('poi_name')
+            self.POIs['uses'] = 0
+            self.xmin = min(self.POIs['poi_x_km']) - self.tol
+            self.xmax = max(self.POIs['poi_x_km']) + self.tol
+            self.ymin = min(self.POIs['poi_y_km']) - self.tol
+            self.ymax = max(self.POIs['poi_y_km']) + self.tol
+>>>>>>> neo4j_connection
             self.width = self.xmax - self.xmin
             self.height = self.ymax - self.ymin
 
@@ -109,9 +122,13 @@ class EVSpaceModel(Model):
         )
         self.gen_GPs()
         self.schedule_gridpoints.step()
+<<<<<<< HEAD
         self.schedule_list = ["schedule_CP", "schedule"]
         # self.schedule_list.append('schedule_gridpoints')
         # self.schedule_list.append('schedule_CP')
+=======
+        self.schedule_list = ['schedule_CP','schedule']
+>>>>>>> neo4j_connection
 
         # collect starting values of all the observables, eg av charge of agents etc and update ready for collection
         self.update_vars()
@@ -182,9 +199,22 @@ class EVSpaceModel(Model):
             self.CP_locs = pd.read_csv(self.CP_loc).set_index("Station_Name")
             self.N_Charge = len(self.CP_locs)
             names = self.CP_locs.index
+<<<<<<< HEAD
             x_pos = self.CP_locs["x_km"].values
             y_pos = self.CP_locs["y_km"].values
         elif self.CP_loc == "uniform":
+=======
+            x_pos = self.CP_locs['x_km'].values
+            y_pos = self.CP_locs['y_km'].values
+        elif self.CP_loc == "fetch_from_database":
+            cp_df = Data.neo4j_connection.fetch_charging_point_data()
+            self.CP_locs = cp_df.set_index('Station_Name') # two station name can be same so correct it later
+            self.N_Charge = len(self.CP_locs)
+            names = self.CP_locs.index
+            x_pos = self.CP_locs['x_km'].values
+            y_pos = self.CP_locs['y_km'].values
+        elif self.CP_loc == 'uniform':
+>>>>>>> neo4j_connection
             indices = np.arange(0, self.N_Charge, dtype=float) + 0.5
             r = np.sqrt(indices / self.N_Charge)
             theta = np.pi * (1 + 5 ** 0.5) * indices
@@ -195,7 +225,6 @@ class EVSpaceModel(Model):
             y_pos = np.random.random(self.N_Charge) * self.height + self.ymin
 
         charge_locs = list(zip(x_pos, y_pos))
-        # print(charge_locs)
 
         # create and place charge points
         self.charge_locations = {}

@@ -1,4 +1,4 @@
-,poi_x,poi_y,poi_x_km,poi_y_km,poi_name,poi_area,place_name
+id,poi_x,poi_y,poi_x_km,poi_y_km,poi_name,poi_area,place_name
 0,-1.491186586,50.67027122,-166.000382,5624.400105,Freshwater Golf Club,384445.8922,Isle of Wight
 1,-1.173088023,50.65832572,-130.5893319,5623.074155,Shanklin & Sandown Golf Club,375125.5512,Isle of Wight
 2,-1.241888441,50.68745923,-138.2482632,5626.307974,Robin Hill,349882.5333,Isle of Wight
