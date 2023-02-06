@@ -52,7 +52,7 @@ def portrayal_method(agent):
         portrayal["symbol"] = "square"
         portrayal["loc"] = "Charging Point"
         portrayal["subtype"] = "Charging Point"
-        portrayal["r"] = r
+        portrayal["r"] = r * 2
 
         if agent.full:
             portrayal["color"] = "black"
@@ -92,7 +92,12 @@ def plot_model():
 
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
-    type_color_map = {"holiday_goer": "blue", "daily_commuter": "magenta", "taxi_driver": "green"}
+    type_color_map = {
+        "Charging Point": "red",
+        "Holiday Goer": "blue",
+        "Daily Commuter": "magenta",
+        "Taxi Driver": "green",
+    }
     fig = go.Figure(
         px.scatter_mapbox(
             agent_data,
@@ -104,6 +109,8 @@ def plot_model():
             # category_orders={"loc": loc_list},
             color="subtype",
             color_discrete_map=type_color_map,
+            size="r",
+            size_max=6,
             text="loc",
             center={"lat": 50.670974, "lon": -1.3212148},
             zoom=10.6,
@@ -138,17 +145,27 @@ def plot_model():
     mdf = st.session_state.model.datacollector.get_model_vars_dataframe()
     mdf["hour"] = pd.to_datetime(mdf.date_time).dt.hour
     mdf = mdf.set_index("date_time")
+    mdf = mdf.rename(
+        columns={
+            "charge_load": "Charge Load",
+            "av_moving": "Moving",
+            "av_home": "Home",
+            "av_work": "Work",
+            "av_random": "Random",
+            "av_CP": "Charging Point",
+        }
+    )
 
     col1, col4, col5 = st.columns(3)  # col2, col3,
     with col1:
         st.write("Charge Load Overall")
-        st.line_chart(mdf["charge_load"])
+        st.line_chart(mdf["Charge Load"])
     with col4:
         st.write("Charge Load per Hour")
-        st.line_chart(mdf.groupby("hour").mean()["charge_load"] * 100)
+        st.line_chart(mdf.groupby("hour").mean()["Charge Load"] * 100)
     with col5:
         st.write("EVs Positions %")
-        st.line_chart(mdf[["av_moving", "av_home", "av_work", "av_random", "av_CP"]] * 100)
+        st.line_chart(mdf[["Moving", "Home", "Work", "Random", "Charging Point"]] * 100)
 
     return fig
 

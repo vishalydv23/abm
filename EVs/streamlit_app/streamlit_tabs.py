@@ -47,8 +47,8 @@ col1, col2 = st.columns([0.8, 0.2])
 with col1:
     choose = option_menu(
         "Team Evlution - EV Simulation",
-        ["Live Run", "Model Results", "Agent Movement", "New Model Run"],
-        icons=["shuffle", "bar-chart", "pin-map", "node-plus"],
+        ["Live Run", "Model Results", "New Model Run"],  # "Agent Movement",
+        icons=["shuffle", "bar-chart", "node-plus"],  # "pin-map",
         menu_icon="app-indicator",
         default_index=0,
         orientation="horizontal",
@@ -66,8 +66,8 @@ if choose == "Live Run":
     new_run_live.gen_app()
 elif choose == "Model Results":
     model_res_dash.gen_app()
-elif choose == "Agent Movement":
-    agent_app.gen_app_3()
+# elif choose == "Agent Movement":
+#     agent_app.gen_app_3()
 else:
     new_run.gen_app()
 
