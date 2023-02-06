@@ -46,7 +46,7 @@ logo = Image.open(r"./branding/cap_logo.png")
 col1, col2 = st.columns([0.8, 0.2])
 with col1:
     choose = option_menu(
-        "Team Evlution - EV Simulation",
+        "BEIS Poc - EV charging in Isle of Wight",
         ["Live Run", "Model Results", "New Model Run"],  # "Agent Movement",
         icons=["shuffle", "bar-chart", "node-plus"],  # "pin-map",
         menu_icon="app-indicator",

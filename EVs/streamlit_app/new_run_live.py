@@ -176,31 +176,33 @@ def gen_app():
     with st.sidebar:
         st.write("Give Model name and parameters")
         st.write("if model data already exists then can  examine results if not will gen new model run")
-        # col1, col2= st.columns(2) # col2, col3
-        # with col1:
+
         model_name = st.text_input("Model Name", value="NewRun")
         seed = st.slider("seed2", 0, 100, 1)
-        # with col2:
 
         cfg = st.radio("Configuration", poss_cfg, index=0)
 
-        col1, col3 = st.columns(2)  # col2, col3
+        st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Scenario 1</b></p>', unsafe_allow_html=True)
+        # Adding a slider for the number of charging stations 
+        num_charging_station = st.slider("Number of charging station", 20, 57, 27)
+        
+        st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Scenario 2</b></p>', unsafe_allow_html=True)
+        col1, col3 = st.columns(2)  
         with col1:
             dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
         with col3:
             price_peak = st.slider("Peak", 0, 20, 15)
 
-        col2, col3 = st.columns(2)  # col2, col3
+        col2, col3 = st.columns(2)  
         with col2:
             price_off_peak = st.slider("Off Peak Price", 0, 20, 7)
         with col3:
             price_mid_peak = st.slider("Mid Peak Price", 0, 20, 10)
 
-        col1, col3 = st.columns(2)  # col2, col3
+        col1, col3 = st.columns(2)  
         hours = set(np.arange(24))
         with col1:
-            winter_peaks = st.multiselect("Winter Peak Hours", list(hours), [7, 8, 9, 10, 17, 18])
-            # print(winter_peaks)
+            winter_peaks = st.multiselect("Winter Peak Hours", list(hours), [7, 8, 9, 17, 18, 19])
         with col3:
             winter_mid_peaks = st.multiselect(
                 "Winter Mid Hours", list(hours - set(winter_peaks)), [11, 12, 13, 14, 15, 16]
@@ -216,6 +218,7 @@ def gen_app():
         ModelP_price_mid_peak=price_mid_peak,
         ModelP_winter_peaks=winter_peaks,
         ModelP_winter_mid_peaks=winter_mid_peaks,
+        ModelP_num_charging_station = num_charging_station
     )
     model_running = False
     specific_date = []

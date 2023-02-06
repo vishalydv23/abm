@@ -179,6 +179,8 @@ class EVSpaceModel(Model):
         # print(self.cfg)
 
     def gen_CPs(self):
+        # Check the number of charging stations in the list
+        charging_station_num = self.num_charging_station
         """determine charge point locations, either uniform or randomly distribute"""
         self.CP_loc = self.cfg["agent_params"]["Charge_Points"]["CP_loc"]
         self.N_Charge = self.cfg["agent_params"]["Charge_Points"]["N_Charge"]
@@ -189,6 +191,7 @@ class EVSpaceModel(Model):
             y_pos = self.CP_loc["y_km"].values
         elif ".csv" in self.CP_loc:
             self.CP_locs = pd.read_csv(self.CP_loc).set_index("Station_Name")
+            self.CP_locs = self.CP_locs[:charging_station_num]
             self.N_Charge = len(self.CP_locs)
             names = self.CP_locs.index
             x_pos = self.CP_locs["x_km"].values
@@ -196,6 +199,7 @@ class EVSpaceModel(Model):
         elif self.CP_loc == "fetch_from_database":
             cp_df = Data.neo4j_connection.fetch_charging_point_data()
             self.CP_locs = cp_df.set_index('Station_Name') # two station name can be same so correct it later
+            self.CP_locs = self.CP_locs[:charging_station_num]
             self.N_Charge = len(self.CP_locs)
             names = self.CP_locs.index
             x_pos = self.CP_locs['x_km'].values
