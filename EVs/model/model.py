@@ -36,13 +36,6 @@ class EVSpaceModel(Model):
         np.random.seed(self.seed)
         self.location_probs_weekday = pd.read_csv(self.location_probs_weekday).set_index("hour")
         self.location_probs_weekend = pd.read_csv(self.location_probs_weekend).set_index("hour")
-        # self.location_probs_weekday_subtypes = {}
-        # self.location_probs_weekend_subtypes = {}
-        # for subtype in self.cfg["agent_params"]["EVs"]:
-        #     subtype = subtype.lower()
-        #     subtype_cols = [col for col in self.location_probs_weekday.columns if subtype in col]
-        #     self.location_probs_weekday_subtypes[subtype] = self.location_probs_weekday[subtype_cols]
-        #     self.location_probs_weekend_subtypes[subtype] = self.location_probs_weekend[subtype_cols]
 
         self.date_time = pd.to_datetime(self.start_date)
         self.business_day = 1
@@ -195,7 +188,7 @@ class EVSpaceModel(Model):
         elif self.CP_loc == "uniform":
             indices = np.arange(0, self.N_Charge, dtype=float) + 0.5
             r = np.sqrt(indices / self.N_Charge)
-            theta = np.pi * (1 + 5**0.5) * indices
+            theta = np.pi * (1 + 5 ** 0.5) * indices
             x_pos = r * np.cos(theta) * self.width / 2 + self.width / 2 + self.xmin
             y_pos = r * np.sin(theta) * self.height / 2 + self.height / 2 + self.ymin
         else:
