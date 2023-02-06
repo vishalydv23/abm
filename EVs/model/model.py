@@ -51,7 +51,6 @@ class EVSpaceModel(Model):
         # Set up points of interest that the agents will choose from
         # this also defines the parameter space for locations where an agent can be
         # then also pick and save the lat/lon for use in vis
-<<<<<<< HEAD
         if self.POI_file != "None":
             self.POIs = pd.read_csv(self.POI_file).set_index("poi_name")
             self.POIs["uses"] = 0
@@ -59,17 +58,6 @@ class EVSpaceModel(Model):
             self.xmax = max(self.POIs["poi_x_km"]) + self.tol
             self.ymin = min(self.POIs["poi_y_km"]) - self.tol
             self.ymax = max(self.POIs["poi_y_km"]) + self.tol
-=======
-        if self.POI_file != 'None':
-            poi_df = Data.neo4j_connection.fetch_point_of_interest_data()
-            self.POIs = poi_df.set_index('poi_name')
-            # self.POIs = pd.read_csv(self.POI_file).set_index('poi_name')
-            self.POIs['uses'] = 0
-            self.xmin = min(self.POIs['poi_x_km']) - self.tol
-            self.xmax = max(self.POIs['poi_x_km']) + self.tol
-            self.ymin = min(self.POIs['poi_y_km']) - self.tol
-            self.ymax = max(self.POIs['poi_y_km']) + self.tol
->>>>>>> neo4j_connection
             self.width = self.xmax - self.xmin
             self.height = self.ymax - self.ymin
 
