@@ -120,13 +120,7 @@ class EVSpaceModel(Model):
         )
         self.gen_GPs()
         self.schedule_gridpoints.step()
-<<<<<<< HEAD
-        self.schedule_list = ["schedule_CP", "schedule"]
-        # self.schedule_list.append('schedule_gridpoints')
-        # self.schedule_list.append('schedule_CP')
-=======
         self.schedule_list = ['schedule_CP','schedule']
->>>>>>> beis_abm
 
         # collect starting values of all the observables, eg av charge of agents etc and update ready for collection
         self.update_vars()
@@ -199,7 +193,6 @@ class EVSpaceModel(Model):
             names = self.CP_locs.index
             x_pos = self.CP_locs["x_km"].values
             y_pos = self.CP_locs["y_km"].values
-<<<<<<< HEAD
         elif self.CP_loc == "fetch_from_database":
             cp_df = Data.neo4j_connection.fetch_charging_point_data()
             self.CP_locs = cp_df.set_index('Station_Name') # two station name can be same so correct it later
@@ -207,8 +200,6 @@ class EVSpaceModel(Model):
             names = self.CP_locs.index
             x_pos = self.CP_locs['x_km'].values
             y_pos = self.CP_locs['y_km'].values
-=======
->>>>>>> beis_abm
         elif self.CP_loc == "uniform":
             indices = np.arange(0, self.N_Charge, dtype=float) + 0.5
             r = np.sqrt(indices / self.N_Charge)
