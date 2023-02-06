@@ -93,9 +93,9 @@ def plot_model():
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
     type_color_map = {
-        "Charging Point": "red",
+        "Charging Point": "black",
         "Holiday Goer": "blue",
-        "Daily Commuter": "magenta",
+        "Daily Commuter": "red",
         "Taxi Driver": "green",
     }
     fig = go.Figure(
