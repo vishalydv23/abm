@@ -146,7 +146,7 @@ class EVAgent(Agent):
             loc_probs_hour = self.location_probs_weekday.loc[self.model.date_time.hour].to_dict()
             loc_probs = np.array([loc_probs_hour[x] for x in locations_names_new])
         elif not self.model.business_day and self.location_probs_weekend is not None:
-            loc_probs_hour = self.location_probs_weekend.loc[self.model_date_time.hour].to_dict()
+            loc_probs_hour = self.location_probs_weekend.loc[self.model.date_time.hour].to_dict()
             loc_probs = np.array([loc_probs_hour[x] for x in locations_names_new])
         else:
             loc_probs = np.array([self.model.loc_probs_hour[x] for x in locations_names_new])
