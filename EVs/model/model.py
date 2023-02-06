@@ -110,13 +110,7 @@ class EVSpaceModel(Model):
         )
         self.gen_GPs()
         self.schedule_gridpoints.step()
-<<<<<<< HEAD
-        self.schedule_list = ["schedule_CP", "schedule"]
-        # self.schedule_list.append('schedule_gridpoints')
-        # self.schedule_list.append('schedule_CP')
-=======
         self.schedule_list = ['schedule_CP','schedule']
->>>>>>> neo4j_connection
 
         # collect starting values of all the observables, eg av charge of agents etc and update ready for collection
         self.update_vars()
