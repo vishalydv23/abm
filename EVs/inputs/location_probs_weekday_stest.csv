@@ -1,4 +1,4 @@
-hour,holiday_goer_work,holiday_goer_home,holiday_goer_random,daily_commuter_work,daily_commuter_home,daily_commuter_random,taxi_driver_work,taxi_driver_home,taxi_driver_random
+hour,Holiday_Goer_work,Holiday_Goer_home,Holiday_Goer_random,Daily_Commuter_work,Daily_Commuter_home,Daily_Commuter_random,Taxi_Driver_work,Taxi_Driver_home,Taxi_Driver_random
 0,0,95,5,2,95,3,0,50,50
 1,0,95,5,2,95,3,0,80,20
 2,0,95,5,2,95,3,0,80,20
