@@ -28,6 +28,13 @@ class EVAgent(Agent):
         self.range = self.charge * self.efficiency_rating  # max dist in km
         self.has_home_charger = self.home_charge_perc > np.random.uniform()
 
+        try:
+            self.location_probs_weekday = pd.read_csv(self.location_probs_weekday).set_index("hour")
+            self.location_probs_weekend = pd.read_csv(self.location_probs_weekend).set_index("hour")
+        except FileNotFoundError:
+            self.location_probs_weekday = None
+            self.location_probs_weekend = None
+
         self.initialise_locs()
 
     def initialise_locs(self):
@@ -47,7 +54,7 @@ class EVAgent(Agent):
             # idxs = list(rand_locs.index[:2])
 
             # Only commuters will have a work location
-            if self.subtype == "daily_commuter":
+            if self.subtype == "Daily Commuter":
                 # choose work location that is closer than max_work_d hours travel away
                 # (ie cant work somewhere super far as wont be able to travel there)
                 poss_work_locs = rand_locs[rand_locs["d"] < self.max_work_d]
@@ -135,7 +142,15 @@ class EVAgent(Agent):
     def choose_new_location(self, locations_names_new):
         """agent compares all possibile locations, and then uses the location probabilies from model.loc_probs_hour
         to see which location it will choose to go to"""
-        loc_probs = np.array([self.model.loc_probs_hour[x] for x in locations_names_new])
+        if self.model.business_day and self.location_probs_weekday is not None:
+            loc_probs_hour = self.location_probs_weekday.loc[self.model.date_time.hour].to_dict()
+            loc_probs = np.array([loc_probs_hour[x] for x in locations_names_new])
+        elif not self.model.business_day and self.location_probs_weekend is not None:
+            loc_probs_hour = self.location_probs_weekend.loc[self.model_date_time.hour].to_dict()
+            loc_probs = np.array([loc_probs_hour[x] for x in locations_names_new])
+        else:
+            loc_probs = np.array([self.model.loc_probs_hour[x] for x in locations_names_new])
+
         self.next_location = np.random.choice(locations_names_new, p=loc_probs / sum(loc_probs))
         return self.next_location
 
@@ -150,6 +165,7 @@ class EVAgent(Agent):
 
         # update random location if just been to one, cant be same as before, choose new POI
         if self.last_location == "random":
+            locations_names_new.append("random")
             if len(self.model.POIs) > 3:
                 rand_locs = self.model.POIs.sample(
                     1, weights=self.model.POIs["poi_area"], random_state=np.random.randint(10000)
