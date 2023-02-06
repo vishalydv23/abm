@@ -145,14 +145,23 @@ def plot_model():
     mdf = st.session_state.model.datacollector.get_model_vars_dataframe()
     mdf["hour"] = pd.to_datetime(mdf.date_time).dt.hour
     mdf = mdf.set_index("date_time")
+    mdf = mdf.rename(
+        columns={"charge_load": "Charge Load",}
+        #     "av_moving": "Average Moving",
+        #     "av_home": "Average Home",
+        #     "av_work": "Average Work",
+        #     "av_random": "Average Random",
+        #     "av_CP": "Average Charging Point",
+        # }
+    )
 
     col1, col4, col5 = st.columns(3)  # col2, col3,
     with col1:
         st.write("Charge Load Overall")
-        st.line_chart(mdf["charge_load"])
+        st.line_chart(mdf["Charge Load"])
     with col4:
         st.write("Charge Load per Hour")
-        st.line_chart(mdf.groupby("hour").mean()["charge_load"] * 100)
+        st.line_chart(mdf.groupby("hour").mean()["Charge Load"] * 100)
     with col5:
         st.write("EVs Positions %")
         st.line_chart(mdf[["av_moving", "av_home", "av_work", "av_random", "av_CP"]] * 100)
