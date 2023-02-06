@@ -200,7 +200,6 @@ class EVSpaceModel(Model):
 
         # create and place charge points
         self.charge_locations = {}
-        # self.charge_in_operation = {}
         for i in range(self.N_Charge):
             name = "Charge_" + str(i)
 
@@ -212,7 +211,6 @@ class EVSpaceModel(Model):
                 # Add the agent to space
                 self.space.place_agent(a, pos)
                 self.charge_locations[name] = (pos, a.in_operation)
-                # self.charge_in_operation[name] = a.in_operation
             except:
                 print(f"Charge Point Failed {name} {pos}")
 
