@@ -52,7 +52,7 @@ def portrayal_method(agent):
         portrayal["symbol"] = "square"
         portrayal["loc"] = "Charging Point"
         portrayal["subtype"] = "Charging Point"
-        portrayal["r"] = r
+        portrayal["r"] = r * 2
 
         if agent.full:
             portrayal["color"] = "black"
@@ -92,7 +92,12 @@ def plot_model():
 
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
-    type_color_map = {"holiday_goer": "blue", "daily_commuter": "magenta", "taxi_driver": "green"}
+    type_color_map = {
+        "Charging Point": "red",
+        "Holiday Goer": "blue",
+        "Daily Commuter": "magenta",
+        "Taxi Driver": "green",
+    }
     fig = go.Figure(
         px.scatter_mapbox(
             agent_data,
@@ -104,6 +109,8 @@ def plot_model():
             # category_orders={"loc": loc_list},
             color="subtype",
             color_discrete_map=type_color_map,
+            size="r",
+            size_max=6,
             text="loc",
             center={"lat": 50.670974, "lon": -1.3212148},
             zoom=10.6,
