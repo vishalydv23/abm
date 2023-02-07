@@ -74,6 +74,8 @@ agent_params:
       num_agents: 600
       region: "default"
       # file: 'inputs/'
+      location_probs_weekday: "inputs/location_probs_weekday_holiday_goer.csv"
+      location_probs_weekend: "inputs/location_probs_weekend_holiday_goer.csv"
       discharge_rate: 0.2
       MoveType: "loc"
       charging: False
@@ -102,6 +104,8 @@ agent_params:
       num_agents: 600
       region: "default"
       # file: 'inputs/'
+      location_probs_weekday: "inputs/location_probs_weekday_daily_commuter.csv"
+      location_probs_weekend: "inputs/location_probs_weekend_daily_commuter.csv"
       discharge_rate: 0.2
       MoveType: "loc"
       charging: False
@@ -130,6 +134,8 @@ agent_params:
       num_agents: 600
       region: "default"
       # file: 'inputs/'
+      location_probs_weekday: "inputs/location_probs_weekday_taxi_driver.csv"
+      location_probs_weekend: "inputs/location_probs_weekend_taxi_driver.csv"
       discharge_rate: 0.2
       MoveType: "loc"
       charging: False
