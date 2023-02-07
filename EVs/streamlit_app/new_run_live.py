@@ -20,7 +20,6 @@ def setup_model(**kwargs):
     print("set up model")
     os.chdir("../")
     from model.model import EVSpaceModel
-
     st.session_state.model = EVSpaceModel(**kwargs)
     os.chdir("streamlit_app")
     # return model
@@ -28,15 +27,9 @@ def setup_model(**kwargs):
 
 async def run_live_model(per_second):
     while True:
-        # model.run_model(kwargs['run_len'])
-
-        print(time.time())
         st.experimental_rerun()
-        # return model
-
 
 r = 0.0001
-
 
 def portrayal_method(agent):
     portrayal = {"Shape": "circle", "Filled": "true", "r": 2}
@@ -73,11 +66,6 @@ def portrayal_method(agent):
 
 
 def plot_model():
-    # df = px.data.iris()
-    # fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
-    # st.plotly_chart(fig, use_container_width=True)
-    # return fig
-
     space_state = []
     for schedule_name in st.session_state.model.schedule_list:
         agent_list = getattr(st.session_state.model, schedule_name).agents
@@ -88,10 +76,6 @@ def plot_model():
     agent_data = pd.DataFrame(space_state)
     loc_list = agent_data["loc"].unique()
     loc_list.sort()
-
-    # print(loc_list)
-    # print(agent_data[agent_data["loc"] != "Charging Point"])  # ["loc"].value_counts())
-    # print(agent_data)
 
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
@@ -141,9 +125,9 @@ def plot_model():
         margin=dict(l=0, r=0, t=0, b=0),
     )
 
-    st.write(
-        f"Date: {st.session_state.model.date_time.strftime('%Y-%m-%d')} Hour: {st.session_state.model.date_time.strftime('%H')}"
-    )
+    # st.write(
+    #     f"Date: {st.session_state.model.date_time.strftime('%Y-%m-%d')} Hour: {st.session_state.model.date_time.strftime('%H')}"
+    # )
     st.plotly_chart(fig, use_container_width=True)
 
     mdf = st.session_state.model.datacollector.get_model_vars_dataframe()

@@ -33,9 +33,9 @@ def gen_app():
     col1, col2 = st.columns(2)  # col2, col3
     # with col1:
     #     dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
-    with col2:
+    with col1:
         seed = st.slider("seed", 0, 100, 1)
-    with col3:
+    with col2:
         run_len = st.slider("run_len", 0, 500, 240)
 
     col1, col2, col3 = st.columns(3)
@@ -61,7 +61,7 @@ def gen_app():
         run_len=run_len,
         ModelP_model_name=model_name,
         ModelP_seed=seed,
-        EVP_dist_per_step=dist_per_step,
+        # EVP_dist_per_step=dist_per_step,
         ModelP_price_peak=price_peak,
         ModelP_price_off_peak=price_off_peak,
         ModelP_price_mid_peak=price_mid_peak,
