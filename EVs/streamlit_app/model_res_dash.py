@@ -49,7 +49,7 @@ def gen_app():
     col1, col4 = st.columns(2)  # col2, col3,
     with col1:
         st.write("Energy Load caused by all agents combined")
-        data["charge_load_rep"] = data["charge_load"] / data["rep_agents"]
+        data["charge_load_rep"] = (data["charge_load"] * 10000) / data["rep_agents"] # This 10000 is a temp fix, we need to find a correct way to depict the charge 
         st.line_chart(data_plot(data, ["charge_load_rep"], together))
     with col4:
         if not together:
