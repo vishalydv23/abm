@@ -30,9 +30,9 @@ def gen_app():
     with col2:
         cfg = [st.radio("Configuration", poss_cfg, index=0)][0]
 
-    col1, col2, col3 = st.columns(3)  # col2, col3
-    with col1:
-        dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
+    col1, col2 = st.columns(2)  # col2, col3
+    # with col1:
+    #     dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
     with col2:
         seed = st.slider("seed", 0, 100, 1)
     with col3:

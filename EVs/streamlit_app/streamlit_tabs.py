@@ -53,10 +53,7 @@ with col1:
         default_index=0,
         orientation="horizontal",
         styles={
-            # "container": {"padding": "5!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "25px"},
-            # "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            # "nav-link-selected": {"background-color": "#02ab21"},
         },
     )
 with col2:
@@ -66,7 +63,5 @@ if choose == "Live Run":
     new_run_live.gen_app()
 elif choose == "Model Results":
     model_res_dash.gen_app()
-# elif choose == "Agent Movement":
-#     agent_app.gen_app_3()
 else:
     new_run.gen_app()

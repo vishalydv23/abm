@@ -28,17 +28,17 @@ def gen_app():
     # with st.sidebar:
     col1, col2, col4 = st.columns(3)  # col3,
     with col1:
-        if st.checkbox("All Agents", value=True):
+        if st.checkbox("All Customer profiles", value=True):
             locs = ["All"]
         else:
-            locs = [st.multiselect("locations", poss_locs, poss_locs[0])][0]
+            locs = [st.multiselect("Customer profiles", poss_locs, poss_locs[0])][0]
     with col2:
-        together = st.radio("Together", [True, False], index=0)
+        together = st.radio("Aggregated", [True, False], index=1)
     with col4:
-        timeframe = [st.radio("timeframe", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
+        timeframe = [st.radio("Timeframe", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
         if timeframe == ["day"]:
             specific_date = st.date_input(
-                "xxx",
+                "Date",
                 value=source["date_time"].min(),
                 min_value=source["date_time"].min(),
                 max_value=source["date_time"].max(),
@@ -48,15 +48,15 @@ def gen_app():
     data = data_subset(source, locs, timeframe, specific_date)
     col1, col4 = st.columns(2)  # col2, col3,
     with col1:
-        st.write("Charge Load per Agent")
+        st.write("Energy Load caused by all agents combined")
         data["charge_load_rep"] = data["charge_load"] / data["rep_agents"]
         st.line_chart(data_plot(data, ["charge_load_rep"], together))
     with col4:
         if not together:
-            st.write("EVs Moving %")
+            st.write("Percent of EVs moving in IoW")
             st.line_chart(data_plot(data, ["av_moving"], together) * 100)
         else:
-            st.write("EVs Positions %")
+            st.write("Position of EVs on IoW by percentage")
             st.line_chart(data_plot(data, ["av_moving", "av_home", "av_work", "av_random", "av_CP"], together) * 100)
 
     col1, col4 = st.columns(2)  # col2, col3,

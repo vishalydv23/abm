@@ -52,10 +52,10 @@ def portrayal_method(agent):
         portrayal["symbol"] = "square"
         portrayal["loc"] = "Charging Point"
         if agent.in_operation:
-            portrayal["subtype"] = "Active"
+            portrayal["subtype"] = "Active Charging Stations"
         else:
-            portrayal["subtype"] = "Out of Order"
-        portrayal["r"] = r * 2
+            portrayal["subtype"] = "Out of Order Charging Stations"
+        portrayal["r"] = r * 2.5
 
         if agent.full:
             portrayal["color"] = "black"
@@ -96,8 +96,8 @@ def plot_model():
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
     type_color_map = {
-        "Active": "black",
-        "Out of Order": "red",
+        "Active Charging Stations": "black",
+        "Out of Order Charging Stations": "yellow",
         "Holiday Goer": "blue",
         "Daily Commuter": "red",
         "Taxi Driver": "green",
@@ -162,13 +162,13 @@ def plot_model():
 
     col1, col4, col5 = st.columns(3)  # col2, col3,
     with col1:
-        st.write("Charge Load Overall")
+        st.write("Energy Load caused by all agents combined")
         st.line_chart(mdf["Charge Load"])
     with col4:
-        st.write("Charge Load per Hour")
+        st.write("Average energy load per day")
         st.line_chart(mdf.groupby("hour").mean()["Charge Load"] * 100)
     with col5:
-        st.write("EVs Positions %")
+        st.write("Status of EVs on IoW by percentage")
         st.line_chart(mdf[["Moving", "Home", "Work", "Random", "Charging Point"]] * 100)
 
     return fig
@@ -182,7 +182,7 @@ def gen_app():
         st.write("if model data already exists then can  examine results if not will gen new model run")
 
         model_name = st.text_input("Model Name", value="NewRun")
-        seed = st.slider("seed2", 0, 100, 1)
+        seed = st.slider("Choose a seed for unique randomization", 0, 100, 1)
 
         cfg = st.radio("Configuration", poss_cfg, index=0)
 
@@ -191,11 +191,11 @@ def gen_app():
         num_charging_station = st.slider("Number of charging station", 20, 57, 27)
         
         st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Scenario 2</b></p>', unsafe_allow_html=True)
-        col1, col3 = st.columns(2)  
-        with col1:
-            dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
-        with col3:
-            price_peak = st.slider("Peak", 0, 20, 15)
+        # col1, col3 = st.columns(2)  
+        # with col1:
+        #     dist_per_step = st.slider("Dist per Step km", 1, 30, 20)
+        # with col3:
+        price_peak = st.slider("Peak", 0, 20, 15)
 
         col2, col3 = st.columns(2)  
         with col2:
@@ -216,7 +216,7 @@ def gen_app():
         cfg=cfg,
         ModelP_model_name=model_name,
         ModelP_seed=seed,
-        EVP_dist_per_step=dist_per_step,
+        # EVP_dist_per_step=dist_per_step,
         ModelP_price_peak=price_peak,
         ModelP_price_off_peak=price_off_peak,
         ModelP_price_mid_peak=price_mid_peak,
@@ -230,7 +230,7 @@ def gen_app():
     file_name = f"../Data/mdf_{model_name}_{seed}.csv"
     st.session_state["key"] = "value"
 
-    st.title(f"Name: {model_name} and Seed: {seed}")
+    # st.title(f"Name: {model_name} and Seed: {seed}")Dist per Step km
     if len(glob.glob(file_name)) > 0:
         st.title(f"Model Already Exists")
         st.write(f"See Below the charts for that model run")
