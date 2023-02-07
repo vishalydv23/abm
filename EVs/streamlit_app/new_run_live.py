@@ -268,7 +268,7 @@ def gen_app():
             st.write("Price")
             st.line_chart(data_plot(data, ["price"]))
     else:
-        st.title(f"Generate New Run")
+        st.title(f"Test a new agent model")
         st.write(f"Once Happy with parameters above then click the button below to run a new model run")
         col1, col2, col3, col4 = st.columns(4)  # col2, col3,
         with col1:

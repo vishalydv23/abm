@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 from utils import get_data, data_subset, data_plot
+from PIL import Image
 
 
 def data_plot(data, fields, together):
@@ -22,10 +23,12 @@ def gen_app():
 
     st.title("Model Results")
     st.write("Visualisation of model statistics")
+
+    st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Impact of incentivisation on different customer profiles</b></p>', unsafe_allow_html=True)
     # with st.sidebar:
     col1, col2, col4 = st.columns(3)  # col3,
     with col1:
-        if st.checkbox("All Locations", value=True):
+        if st.checkbox("All Agents", value=True):
             locs = ["All"]
         else:
             locs = [st.multiselect("locations", poss_locs, poss_locs[0])][0]
@@ -63,3 +66,24 @@ def gen_app():
     with col4:
         st.write("Price of Charging for Agents")
         st.line_chart(data_plot(data, ["price"], together))
+
+    st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Impact of changing the number of charging stations</b></p>', unsafe_allow_html=True)
+    st.write("20 vs 57 Charging points")
+    col1, col2 = st.columns(2) 
+    with col1:
+        image = Image.open('../Data/resources/CP_20.png')
+        st.image(image, caption='20 charging stations')
+    with col2:
+        image = Image.open('../Data/resources/CP_57.png')
+        st.image(image, caption='57 charging stations')
+
+    col1, col2 = st.columns(2) 
+    with col1:
+        image = Image.open('../Data/resources/CP_20_1.png')
+        st.image(image, caption='20 charging stations')
+    with col2:
+        image = Image.open('../Data/resources/CP_57_1.png')
+        st.image(image, caption='57 charging stations')
+
+
+
