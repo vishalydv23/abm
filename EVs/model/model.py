@@ -12,6 +12,7 @@ from .datacollection import DataCollector
 import datetime
 import collections.abc
 
+import Data.neo4j_connection
 
 class EVSpaceModel(Model):
     """Electric Vehical Model, where cars drive around between locations then pull into charge points. \n
@@ -110,9 +111,7 @@ class EVSpaceModel(Model):
         )
         self.gen_GPs()
         self.schedule_gridpoints.step()
-        self.schedule_list = ["schedule_CP", "schedule"]
-        # self.schedule_list.append('schedule_gridpoints')
-        # self.schedule_list.append('schedule_CP')
+        self.schedule_list = ['schedule_CP','schedule']
 
         # collect starting values of all the observables, eg av charge of agents etc and update ready for collection
         self.update_vars()
@@ -196,7 +195,6 @@ class EVSpaceModel(Model):
             y_pos = np.random.random(self.N_Charge) * self.height + self.ymin
 
         charge_locs = list(zip(x_pos, y_pos))
-        # print(charge_locs)
 
         # create and place charge points
         self.charge_locations = {}

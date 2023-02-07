@@ -3,10 +3,7 @@ import time
 
 cfgs = [
     "None",
-    "configs/Mississauga_cfg.yml",
-    "configs/Point_Edward_cfg.yml",
-    "configs/east_box.yml",
-    "configs/west_box.yml",
+    "configs/Isle_of_Wight_cfg.yml",
 ]
 
 print("The model agents will simulate across: ", cfgs)

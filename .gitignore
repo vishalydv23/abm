@@ -139,3 +139,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# database credentials
+EVs/configs/database_credentials_git_ignored.json

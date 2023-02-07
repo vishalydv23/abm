@@ -99,7 +99,7 @@ def plot_model():
         "Active": "black",
         "Out of Order": "red",
         "Holiday Goer": "blue",
-        "Daily Commuter": "magenta",
+        "Daily Commuter": "red",
         "Taxi Driver": "green",
     }
     fig = go.Figure(
