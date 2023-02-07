@@ -51,7 +51,10 @@ def portrayal_method(agent):
         portrayal["next_location"] = 0
         portrayal["symbol"] = "square"
         portrayal["loc"] = "Charging Point"
-        portrayal["subtype"] = "Charging Point"
+        if agent.in_operation:
+            portrayal["subtype"] = "Active"
+        else:
+            portrayal["subtype"] = "Out of Order"
         portrayal["r"] = r * 2
 
         if agent.full:
@@ -93,7 +96,8 @@ def plot_model():
     # Normal Scatter Mapbox
     loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
     type_color_map = {
-        "Charging Point": "red",
+        "Active": "black",
+        "Out of Order": "red",
         "Holiday Goer": "blue",
         "Daily Commuter": "magenta",
         "Taxi Driver": "green",
