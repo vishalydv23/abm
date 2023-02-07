@@ -247,8 +247,6 @@ def gen_app():
                 min_value=mdf["date_time"].min(),
                 max_value=mdf["date_time"].max(),
             )
-        # with col_aa:
-        #     cc = st.text_input('ccc', value="NewRun")
 
         # Original time series chart. Omitted `get_chart` for clarity
         data = data_subset(mdf, [model_name], timeframeXX, specific_date)

@@ -84,6 +84,3 @@ def gen_app():
     with col2:
         image = Image.open('../Data/resources/CP_57_1.png')
         st.image(image, caption='57 charging stations')
-
-
-
