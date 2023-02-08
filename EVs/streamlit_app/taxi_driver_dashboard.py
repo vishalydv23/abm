@@ -4,7 +4,7 @@ from PIL import Image
 def gen_app():
     image = Image.open('../Data/resources/taxi_driver_poster.jpg')
     st.image(image)
-    st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Welcome: Vishal</b></p>', unsafe_allow_html=True)
+    st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 30px;"><b>Welcome: Mark</b></p>', unsafe_allow_html=True)
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 18px;"><b>Account number: </b> 0379812</p>', unsafe_allow_html=True)
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 18px;"><b>Vehicle type: </b> Electric Hackney Cab</p>', unsafe_allow_html=True)
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 18px;"><b>Operated under a business fleet?: </b> yes</p>', unsafe_allow_html=True)
