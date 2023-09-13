@@ -94,7 +94,13 @@ def plot_model():
     # print(agent_data)
 
     # Normal Scatter Mapbox
-    loc_color_map = {"Charging Point": "red", "home": "green", "moving": "cyan", "work": "blue", "random": "magenta"}
+    loc_color_map = {
+        "Charging Point": "red",
+        "home": "green",
+        "moving": "cyan",
+        "work": "blue",
+        "random": "magenta",
+    }
     type_color_map = {
         "Active": "black",
         "Out of Order": "red",
@@ -135,8 +141,18 @@ def plot_model():
     # )  # , color='loc',category_orders={'loc': loc_list})
 
     fig.update_layout(
-        xaxis={"range": [st.session_state.model.xmin / long_corr, st.session_state.model.xmax / long_corr]},
-        yaxis={"range": [st.session_state.model.ymin / lat_corr, st.session_state.model.ymax / lat_corr]},
+        xaxis={
+            "range": [
+                st.session_state.model.xmin / long_corr,
+                st.session_state.model.xmax / long_corr,
+            ]
+        },
+        yaxis={
+            "range": [
+                st.session_state.model.ymin / lat_corr,
+                st.session_state.model.ymax / lat_corr,
+            ]
+        },
         mapbox_style="open-street-map",
         margin=dict(l=0, r=0, t=0, b=0),
     )
@@ -179,7 +195,9 @@ def gen_app():
     poss_cfg = list(set([x.split("/")[1] for x in filenames]))
     with st.sidebar:
         st.write("Give Model name and parameters")
-        st.write("if model data already exists then can  examine results if not will gen new model run")
+        st.write(
+            "if model data already exists then can  examine results if not will gen new model run"
+        )
         # col1, col2= st.columns(2) # col2, col3
         # with col1:
         model_name = st.text_input("Model Name", value="NewRun")
@@ -203,11 +221,15 @@ def gen_app():
         col1, col3 = st.columns(2)  # col2, col3
         hours = set(np.arange(24))
         with col1:
-            winter_peaks = st.multiselect("Winter Peak Hours", list(hours), [7, 8, 9, 10, 17, 18])
+            winter_peaks = st.multiselect(
+                "Winter Peak Hours", list(hours), [7, 8, 9, 10, 17, 18]
+            )
             # print(winter_peaks)
         with col3:
             winter_mid_peaks = st.multiselect(
-                "Winter Mid Hours", list(hours - set(winter_peaks)), [11, 12, 13, 14, 15, 16]
+                "Winter Mid Hours",
+                list(hours - set(winter_peaks)),
+                [11, 12, 13, 14, 15, 16],
             )
 
     kwargs = dict(
@@ -227,16 +249,24 @@ def gen_app():
     file_name = f"../Data/mdf_{model_name}_{seed}.csv"
     st.session_state["key"] = "value"
 
-    st.title(f"Name: {model_name} and Seed: {seed}")
+    st.title(f"Name: {model_name}")
+    st.title(f"Seed: {seed}")
     if len(glob.glob(file_name)) > 0:
         st.title(f"Model Already Exists")
         st.write(f"See Below the charts for that model run")
 
         mdf = pd.read_csv(
-            file_name, parse_dates=["date_time"],  # set as datetime instead of converting after the fact
+            file_name,
+            parse_dates=[
+                "date_time"
+            ],  # set as datetime instead of converting after the fact
         )
 
-        timeframeXX = [st.radio("timeframeXX2", ["all", "day", "hour", "weekday", "weekend"], index=0,)]
+        timeframeXX = [
+            st.radio(
+                "timeframeXX2", ["all", "day", "hour", "weekday", "weekend"], index=0,
+            )
+        ]
         if timeframeXX == ["day"]:
             specific_date = st.date_input(
                 "xxx2",
@@ -255,7 +285,12 @@ def gen_app():
             st.line_chart(data_plot(data, ["charge_load"]))
         with col4:
             st.write("EVs Positions %")
-            st.line_chart(data_plot(data, ["av_moving", "av_home", "av_work", "av_random", "av_CP"]) * 100)
+            st.line_chart(
+                data_plot(
+                    data, ["av_moving", "av_home", "av_work", "av_random", "av_CP"]
+                )
+                * 100
+            )
 
         col1, col4 = st.columns(2)  # col2, col3,
         with col1:
@@ -266,14 +301,18 @@ def gen_app():
             st.line_chart(data_plot(data, ["price"]))
     else:
         st.title(f"Generate New Run")
-        st.write(f"Once Happy with parameters above then click the button below to run a new model run")
+        st.write(
+            f"Once Happy with parameters above then click the button below to run a new model run"
+        )
         col1, col2, col3, col4 = st.columns(4)  # col2, col3,
         with col1:
             st.session_state.start = st.button("Start")
         with col2:
             st.session_state.stop = st.button("Stop")
         with col3:
-            st.session_state.reset = st.button("Reset", on_click=setup_model, kwargs=kwargs)
+            st.session_state.reset = st.button(
+                "Reset", on_click=setup_model, kwargs=kwargs
+            )
         with col4:
             steps_second = st.slider("Steps Per Second", 1, 20, 5)
 

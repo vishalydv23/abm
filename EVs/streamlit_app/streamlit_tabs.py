@@ -71,4 +71,5 @@ elif choose == "Model Results":
 else:
     new_run.gen_app()
 
+# cd EVs\streamlit_app
 # streamlit run .\streamlit_tabs.py
