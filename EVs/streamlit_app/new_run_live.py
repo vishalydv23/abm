@@ -103,7 +103,7 @@ def plot_model():
     }
     type_color_map = {
         "Active": "black",
-        "Out of Order": "red",
+        "Out of Order": "grey",
         "Holiday Goer": "blue",
         "Daily Commuter": "red",
         "Taxi Driver": "green",
