@@ -201,7 +201,7 @@ def gen_app():
         # col1, col2= st.columns(2) # col2, col3
         # with col1:
         model_name = st.text_input("Model Name", value="NewRun")
-        seed = st.slider("seed2", 0, 100, 1)
+        seed = st.slider("Seed:", 0, 100, 1)
         # with col2:
 
         cfg = st.radio("Configuration", poss_cfg, index=0)
